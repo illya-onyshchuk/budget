@@ -7,3 +7,5 @@ export const Wrapper = styled.div`
   padding: 5px;
   margin-bottom: 10px;
 `
+
+Wrapper.displayName = 'TransactionWrapper'

@@ -35,7 +35,7 @@ class Form extends Component {
         value={this.state.value}
         onChange={this.onChange}
         />
-        <button>Seve</button>
+        <button>Save</button>
       </form>
     );
   }

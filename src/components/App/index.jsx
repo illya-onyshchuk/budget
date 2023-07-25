@@ -1,40 +1,38 @@
-import {Component} from "react"
-import Balance from "../Balance";
-import Transactions from "../Transactions";
-import Form from "../Form";
-import { AppStyle } from "./style";
+import { GlobalStyle, Wrapper } from "./style";
+import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
+import Home from "../pages/Home";
+import About from "../pages/About";
+import Statistics from "../pages/Statistics";
 
-let id = 0;
-
-class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      balance: 0,
-      transactions: [],
-    };
-
-    this.onChange = this.onChange.bind(this)
-  }
-
-  onChange = (value) => {
-    this.setState((state) => ({
-      balance: state.balance + Number(value),
-      transactions: [{value, label: 'change', id: ++id}, ...state.transactions]
-    }))
-  }
-
-  render() {
+const App = () => {
     return (
-      <AppStyle> 
-        <Balance balance={this.state.balance}/>
-        <Form onChange={this.onChange} />
-         <hr />
+      <BrowserRouter>
+        <Wrapper> 
+          <GlobalStyle/> 
+          <nav>
+            <ul>
+              <li>
+                <Link to="/home">Home</Link>
+              </li>
+              <li>
+                <Link to="/statistics">Statistics</Link>
+              </li>
+              <li>
+                <Link to="/about">About</Link>
+              </li>
+            </ul> 
+          </nav>
 
-         <Transactions transactions={this.state.transactions}/>
-      </AppStyle>
+          <Routes>
+            <Route path='/home' element={<Home/>} exact={true}/>
+            <Route path='/statistics' element={<Statistics/>} exact={true}/>
+            <Route path='/about' element={<About/>} exact={true} />
+            <Route path="*" element={<Navigate to={'/home'}/>} />
+          </Routes>
+        </Wrapper>
+      </BrowserRouter>
+
     )
-   }
  }
 
  export default App
