@@ -7,6 +7,8 @@ class Form extends Component {
 
     this.state = {
       value: '',
+      date: '',
+      comment: '',
     }
   }
 
@@ -14,14 +16,18 @@ class Form extends Component {
     e.preventDefault()
 
     this.props.onChange(this.state.value)
-    this.setState({value: ''} )
+    this.setState({
+      value: '',
+      date: '',
+      comment: '',
+    })
   }
 
   onChange = (e) => {
-    const {value} = e.target;
-  
+    const {value, name} = e.target;
+
     this.setState({
-      value: +value
+      [name]: name === 'balance' ? +value : value
     })
   }
  
@@ -29,10 +35,20 @@ class Form extends Component {
     return ( 
       <form onSubmit={this.onSubmit}>
         <input
+        type="date"
+        name="date"
+        value={this.state.date}
+        onChange={this.onChange} />
+        <input
         type="number" 
-        name='balance' 
+        name='value' 
         placeholder='Sum'
         value={this.state.value}
+        onChange={this.onChange}
+        />
+        <textarea 
+        name="comment"
+        value={this.state.comment}
         onChange={this.onChange}
         />
         <button>Save</button>
