@@ -18,10 +18,16 @@ class Home extends Component {
     this.onChange = this.onChange.bind(this)
   }
 
-  onChange = (value) => {
+  onChange = ({value, date, comment}) => {
     this.setState((state) => ({
       balance: state.balance + Number(value),
-      transactions: [{value, label: 'change', id: ++id}, ...state.transactions]
+      transactions: [{
+        value: +value,
+        comment,
+        date,
+        id: ++id
+        },
+         ...state.transactions]
     }))
   }
 

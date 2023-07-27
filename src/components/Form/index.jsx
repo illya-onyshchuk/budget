@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Comment, Button, Input, Row } from './style';
 
 class Form extends Component {
   constructor() {
@@ -7,7 +8,7 @@ class Form extends Component {
 
     this.state = {
       value: '',
-      date: '',
+      date: new Date().toISOString().substring(0, 10),
       comment: '',
     }
   }
@@ -15,10 +16,9 @@ class Form extends Component {
   onSubmit = (e) => {
     e.preventDefault()
 
-    this.props.onChange(this.state.value)
+    this.props.onChange(this.state)
     this.setState({
       value: '',
-      date: '',
       comment: '',
     })
   }
@@ -27,31 +27,35 @@ class Form extends Component {
     const {value, name} = e.target;
 
     this.setState({
-      [name]: name === 'balance' ? +value : value
+      [name]: value
     })
   }
  
   render() {
     return ( 
       <form onSubmit={this.onSubmit}>
-        <input
-        type="date"
-        name="date"
-        value={this.state.date}
-        onChange={this.onChange} />
-        <input
-        type="number" 
-        name='value' 
-        placeholder='Sum'
-        value={this.state.value}
-        onChange={this.onChange}
-        />
-        <textarea 
-        name="comment"
-        value={this.state.comment}
-        onChange={this.onChange}
-        />
-        <button>Save</button>
+        <Row>
+          <Input
+          type="date"
+          name="date"
+          value={this.state.date}
+          onChange={this.onChange} />
+          <Input
+          type="number" 
+          name='value' 
+          placeholder='Sum'
+          value={this.state.value}
+          onChange={this.onChange}
+          />
+        </Row>
+        <Row>
+          <Button>Save</Button>
+          <Comment 
+          name="comment"
+          value={this.state.comment}
+          onChange={this.onChange}
+          />
+        </Row>
       </form>
     );
   }

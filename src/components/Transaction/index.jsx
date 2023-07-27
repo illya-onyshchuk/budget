@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types'
-import { Wrapper } from './style';
+import { Wrapper, TransactiononDate, Value, Comment } from './style';
 
-const Transaction = ({ transaction: {value, label } }) => {
+const Transaction = ({ transaction: {value, date, comment } }) => {
   return (
     <Wrapper value={value}>
-        Label: {label}
-        <p>Value: {value}</p>
-      <br/>
+      <TransactiononDate>{date}</TransactiononDate>
+      <Value>{value.toFixed(2)}</Value>
+      <Comment>{comment}</Comment>
     </Wrapper>
   );
 }
@@ -16,6 +16,14 @@ Transaction.prototype = {
     label: PropTypes.string,
     value: PropTypes.number,
   })
-}
+};
+
+Transaction.defaultProps = {
+  transaction: {
+    label: '',
+    value: 0,
+  }
+};
 
 export default Transaction;
+

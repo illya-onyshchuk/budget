@@ -1,5 +1,5 @@
 
-import Transaction from ".";
+ import Transaction from ".";
 
 export default {
   title: 'Example/Transaction',
@@ -11,7 +11,8 @@ const Template = (args) => <Transaction {...args} />
 export const Income =  Template.bind({});
 Income.args = {
   transaction: {
-    label: 'some income',
+    comment: 'some income',
     value: 23, 
+    date: '27.07.2023'
   },
 }
