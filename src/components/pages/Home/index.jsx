@@ -24,7 +24,7 @@ class Home extends Component {
         transactions
       })
     }).catch(e => {
-      
+      console.error(e)
     })
   }
 

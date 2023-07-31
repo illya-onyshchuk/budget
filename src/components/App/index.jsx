@@ -1,10 +1,11 @@
 import { Component } from "react";
-import { GlobalStyle, Wrapper } from "./style";
-import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { open } from "../../utils/indexdb";
 import Home from "../pages/Home";
 import About from "../pages/About";
 import Statistics from "../pages/Statistics";
-import { open } from "../../utils/indexdb";
+import Navbar  from "../Navbar";
+import { GlobalStyle, Wrapper } from "./style";
 
 class App extends Component {
     constructor(props) {
@@ -33,20 +34,7 @@ class App extends Component {
         <BrowserRouter>
           <Wrapper> 
             <GlobalStyle/> 
-            <nav>
-              <ul>
-                <li>
-                  <Link to="/home">Home</Link>
-                </li>
-                <li>
-                  <Link to="/statistics">Statistics</Link>
-                </li>
-                <li>
-                  <Link to="/about">About</Link>
-                </li>
-              </ul> 
-            </nav>
-
+            <Navbar/> 
             <Routes>
               <Route path='/home' element={<Home/>} exact={true}/>
               <Route path='/statistics' element={<Statistics/>} exact={true}/>

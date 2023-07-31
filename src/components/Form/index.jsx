@@ -1,64 +1,60 @@
-import { Component } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Comment, Button, Input, Row } from './style';
 
-class Form extends Component {
-  constructor() {
-    super();
+const Form = (props) =>{
+  const [form, setForm] = useState({
+    value: '',
+    date: new Date().toISOString().substring(0, 10),
+    comment: '',
+  })
 
-    this.state = {
-      value: '',
-      date: new Date().toISOString().substring(0, 10),
-      comment: '',
-    }
-  }
-
-  onSubmit = (e) => {
+  const onSubmit = (e) => {
     e.preventDefault()
 
-    this.props.onChange(this.state)
-    this.setState({
+    props.onChange(form)
+    setForm({
+      ...form,
       value: '',
-      comment: '',
+      comment: '',  
     })
   }
 
-  onChange = (e) => {
+  const onChange = (e) => {
     const {value, name} = e.target;
 
-    this.setState({
+    setForm({
+      ...form,
       [name]: value
     })
   }
- 
-  render() {
+
     return ( 
-      <form onSubmit={this.onSubmit}>
+      <form onSubmit={onSubmit}>
         <Row>
           <Input
           type="date"
           name="date"
-          value={this.state.date}
-          onChange={this.onChange} />
+          value={form.date}
+          onChange={onChange} />
           <Input
           type="number" 
           name='value' 
           placeholder='Sum'
-          value={this.state.value}
-          onChange={this.onChange}
+          value={form.value}
+          onChange={onChange}
           />
         </Row>
         <Row>
           <Button>Save</Button>
           <Comment 
           name="comment"
-          value={this.state.comment}
-          onChange={this.onChange}
+          value={form.comment}
+          onChange={onChange}
           />
         </Row>
       </form>
     );
-  }
 }
 
 Form.propTypes = {
