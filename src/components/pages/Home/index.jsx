@@ -1,4 +1,4 @@
-import {Component} from "react"
+import {useState, useEffect} from "react"
 import Balance from "../../Balance";
 import Transactions from "../../Transactions";
 import Form from "../../Form";
@@ -7,28 +7,19 @@ import ErrorBoundary from "../../ErrorBoundary";
 import { getItems, addItem } from "../../../utils/indexdb";
 
 
-class Home extends Component {
-  constructor() {
-    super();
-    this.state = {
-      balance: 0,
-      transactions: [],
-    };
+const Home = () => {
+  const [balance, setBalance] = useState(0);
+  const [transactions, setTransactions] = useState([]);
 
-    this.onChange = this.onChange.bind(this)
-  }
-
-  componentDidMount() {
-    getItems().then(transactions => {
-      this.setState({
-        transactions
-      })
+  useEffect(() => {
+    getItems().then(items => {
+      setTransactions(items)
     }).catch(e => {
-      console.error(e)
+      console.error('error', e)
     })
-  }
+  }, [setTransactions]);
 
-  onChange = ({value, date, comment}) => {
+const onChange = ({value, date, comment}) => {
     const transaction = {
       value: +value,
       comment,
@@ -36,28 +27,26 @@ class Home extends Component {
       id: Date.now()
     };
 
-    this.setState((state) => ({
-      balance: state.balance + Number(value),
-      transactions: [
+    setTransactions([
         transaction,
-         ...state.transactions]
-    }));
+      ...transactions
+    ]);
+
+    setBalance(balance + Number(value));
 
     addItem(transaction);
   }
 
-  render() {
     return (
       <ErrorBoundary>
           <Wrapper> 
-            <Balance balance={this.state.balance}/>
-            <Form onChange={this.onChange} />
+            <Balance balance={balance}/>
+            <Form onChange={onChange} />
             <hr />
-            <Transactions transactions={this.state.transactions}/>
+            <Transactions transactions={transactions}/>
           </Wrapper>
       </ErrorBoundary>
     )
-   }
  }
 
  export default Home

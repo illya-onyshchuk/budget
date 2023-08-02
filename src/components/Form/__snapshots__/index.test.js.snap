@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Transaction component should show transaction 1`] = `
+<form
+  onSubmit={[Function]}
+>
+  <Row>
+    <Input
+      name="date"
+      onChange={[Function]}
+      type="date"
+      value="2023-08-01"
+    />
+    <Input
+      name="value"
+      onChange={[Function]}
+      placeholder="Sum"
+      type="number"
+      value=""
+    />
+  </Row>
+  <Row>
+    <Button>
+      Save
+    </Button>
+    <Comment
+      name="comment"
+      onChange={[Function]}
+      value=""
+    />
+  </Row>
+</form>
+`;

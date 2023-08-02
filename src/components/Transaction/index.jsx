@@ -5,7 +5,7 @@ const Transaction = ({ transaction: {value, date, comment } }) => {
   return (
     <Wrapper value={value}>
       <TransactiononDate>{date}</TransactiononDate>
-      <Value>{value.toFixed(3)}</Value>
+      <Value>{value.toFixed(2)}</Value>
       <Comment>{comment}</Comment>
     </Wrapper>
   );

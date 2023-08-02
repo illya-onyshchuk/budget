@@ -1,12 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const Counter = () => {
   const [clicks, setClicks] = useState(0);
   const [step, setStep] = useState(1)
 
+   useEffect(() => {
+    console.log('render:', clicks);
+    console.log( `Component render Clicked ${clicks} times` )
+
+    setStep(s => s + 1)
+  }, [clicks, setStep]);
+
+  useEffect(() => {
+    console.log('Step:', step)
+  },[step])
+
   const showValue = () => {
     setTimeout(() => {
-      alert(() =>  clicks)
+      alert( clicks)
     }, 2000)
   }
 

@@ -26,4 +26,4 @@ describe('Transaction component', () => {
   it('should show 2 zeros after amount', () => {
       expect(sut.find('Value').text()).toBe('23.00')
   });
-}) 
+})
