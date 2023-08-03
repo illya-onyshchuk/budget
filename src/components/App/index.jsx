@@ -6,6 +6,7 @@ import About from "../pages/About";
 import Statistics from "../pages/Statistics";
 import Navbar  from "../Navbar";
 import { GlobalStyle, Wrapper } from "./style";
+import CurrencyContext from "../../providers/context";
 
 class App extends Component {
     constructor(props) {
@@ -30,19 +31,22 @@ class App extends Component {
       if (this.state.loading) {
         return <div>Loading...</div>
       }
+
       return (
-        <BrowserRouter>
-          <Wrapper> 
-            <GlobalStyle/> 
-            <Navbar/> 
-            <Routes>
-              <Route path='/home' element={<Home/>} exact={true}/>
-              <Route path='/statistics' element={<Statistics/>} exact={true}/>
-              <Route path='/about' element={<About/>} exact={true} />
-              <Route path="*" element={<Navigate to={'/home'}/>} />
-            </Routes>
-          </Wrapper>
-        </BrowserRouter>
+        <CurrencyContext.Provider value={{}}>
+            <BrowserRouter>
+              <Wrapper> 
+                <GlobalStyle/> 
+                <Navbar/> 
+                <Routes>
+                  <Route path='/home' element={<Home/>} exact={true}/>
+                  <Route path='/statistics' element={<Statistics/>} exact={true}/>
+                  <Route path='/about' element={<About/>} exact={true} />
+                  <Route path="*" element={<Navigate to={'/home'}/>} />
+                </Routes>
+              </Wrapper>
+            </BrowserRouter>
+        </CurrencyContext.Provider>
       )
     }
  }
