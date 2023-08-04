@@ -8,6 +8,7 @@ const Navbar= () => {
       <div className={cl.navbar__links}>
           <Link className={cl.navbar__link} to="/home">Home</Link>
           <Link className={cl.navbar__link} to="/statistics">Statistics</Link>
+          <Link className={cl.navbar__link} to="/settings">Settings</Link>
           <Link className={cl.navbar__link}  to="/about">About</Link>
       </div> 
     </nav>

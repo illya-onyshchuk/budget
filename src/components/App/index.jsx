@@ -1,12 +1,14 @@
 import { Component } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { open } from "../../utils/indexdb";
+
 import Home from "../pages/Home";
 import About from "../pages/About";
 import Statistics from "../pages/Statistics";
+import Settings from "../pages/Settings";
 import Navbar  from "../Navbar";
+
 import { GlobalStyle, Wrapper } from "./style";
-import CurrencyContext from "../../providers/context";
 
 class App extends Component {
     constructor(props) {
@@ -33,7 +35,6 @@ class App extends Component {
       }
 
       return (
-        <CurrencyContext.Provider value={{}}>
             <BrowserRouter>
               <Wrapper> 
                 <GlobalStyle/> 
@@ -41,12 +42,12 @@ class App extends Component {
                 <Routes>
                   <Route path='/home' element={<Home/>} exact={true}/>
                   <Route path='/statistics' element={<Statistics/>} exact={true}/>
+                  <Route path='/settings' element={<Settings />} exact={true}/>
                   <Route path='/about' element={<About/>} exact={true} />
                   <Route path="*" element={<Navigate to={'/home'}/>} />
                 </Routes>
               </Wrapper>
             </BrowserRouter>
-        </CurrencyContext.Provider>
       )
     }
  }
