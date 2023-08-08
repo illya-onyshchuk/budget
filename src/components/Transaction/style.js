@@ -26,3 +26,14 @@ export const Comment = styled.div`
   flex-grow: 2;
 `;
 Comment.displayName = 'Comment'
+
+export const Icon = styled.span`
+  cursor: pointer;
+  
+  img {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+  }
+`
+Icon.displayName = 'Value'

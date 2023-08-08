@@ -15,4 +15,5 @@ Income.args = {
     value: 23, 
     date: '27.07.2023'
   },
+  onDelete: () => {},
 }

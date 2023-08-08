@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 const Counter = () => {
   const [clicks, setClicks] = useState(0);
-  const [step, setStep] = useState(1)
+  const [step, setStep] = useState(1);
+
+  const currentValue = useRef(0);
 
    useEffect(() => {
     console.log('render:', clicks);
     console.log( `Component render Clicked ${clicks} times` )
+    // currentValue.current = clicks
 
     setStep(s => s + 1)
   }, [clicks, setStep]);
@@ -16,10 +19,12 @@ const Counter = () => {
   },[step])
 
   const showValue = () => {
+    console.log(currentValue)
+
     setTimeout(() => {
-      alert( clicks)
+      alert(currentValue.current)
     }, 2000)
-  }
+  } 
 
   function handlerClick() {
     setClicks(clicks + step)
@@ -32,7 +37,7 @@ const Counter = () => {
       <br />
       <button onClick={showValue}>Show Value</button>
       <br />
-      <input name='step' type="text" value={step} onChange={(e) => setStep(+e.target.value)}/>
+      <input ref={currentValue} name='step' type="text" value={step} onChange={(e) => setStep(+e.target.value)}/>
     </div>
   );
 }

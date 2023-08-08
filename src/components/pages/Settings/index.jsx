@@ -1,6 +1,13 @@
-import { useContext } from 'react';
+import { memo, useContext, useMemo,} from 'react';
 
 import { AppContext } from '../../../providers/context';
+
+
+const Test = memo(({data}) => {
+  console.log('rendering')
+
+  return <div>{JSON.stringify(data)}</div>
+})
 
 const Settings = () => {
   const {state, dispatch} = useContext(AppContext);
@@ -16,10 +23,12 @@ const Settings = () => {
     });
   }
 
+const data = useMemo( () => [2], [])
+
   return (
     <>
       <h1>Setting</h1>
-
+    <Test data={data}/>
       <div>
         <form>
           <label>

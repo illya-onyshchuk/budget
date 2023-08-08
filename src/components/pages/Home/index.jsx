@@ -1,4 +1,4 @@
-import {useState, useEffect} from "react"
+import {useState, useEffect, useCallback} from "react"
 import Balance from "../../Balance";
 import Transactions from "../../Transactions";
 import Form from "../../Form";
@@ -24,7 +24,7 @@ const onChange = ({value, date, comment}) => {
       value: +value,
       comment,
       date,
-      id: Date.now()
+      id: Date.now(),
     };
 
     setTransactions([
@@ -37,13 +37,29 @@ const onChange = ({value, date, comment}) => {
     addItem(transaction);
   }
 
+  const onDelete = useCallback((id) => {
+    setTransactions((transactions) => transactions.filter((transaction) => transaction.id !== id))
+  }, [setTransactions]);
+
+  const onStarClick = useCallback((id) => {
+    setTransactions((transactions) => transactions.map((transaction) => transaction.id !== id 
+        ? transaction 
+        : {
+          ...transaction,
+           isStarred: !transaction.isStarred
+          }
+    ))
+  });
+
     return (
       <ErrorBoundary>
           <Wrapper> 
             <Balance balance={balance}/>
             <Form onChange={onChange} />
             <hr />
-            <Transactions transactions={transactions}/>
+            <Transactions transactions={transactions}
+               onDelete={onDelete}
+               onStarClick={onStarClick}/>
           </Wrapper>
       </ErrorBoundary>
     )
