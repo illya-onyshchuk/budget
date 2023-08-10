@@ -27,7 +27,7 @@ const Transaction = ({ transaction: {id, value, date, comment, isStarred }, onDe
   );
 }
   
-Transaction.prototype = {
+Transaction.prototype = { 
   transaction: PropTypes.shape({ 
     comment: PropTypes.string,
     value: PropTypes.number,

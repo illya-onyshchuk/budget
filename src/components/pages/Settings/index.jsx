@@ -1,7 +1,8 @@
-import { memo, useContext, useMemo,} from 'react';
+import { memo, useContext, useMemo, } from 'react';
 
 import { AppContext } from '../../../providers/context';
-
+import { Button } from './style';
+import { useBooleanToggle } from '../../hooks/useBooleanToggle';
 
 const Test = memo(({data}) => {
   console.log('rendering')
@@ -11,13 +12,12 @@ const Test = memo(({data}) => {
 
 const Settings = () => {
   const {state, dispatch} = useContext(AppContext);
+  const {status, handleStatusChange} = useBooleanToggle( );
 
   const onChange = (e) => {
-    // e.preventDefault();
-
     const {value} = e.target;
 
-    dispatch({
+    dispatch({ 
       type: 'changeCurrency',
       currency: value,
     });
@@ -28,12 +28,10 @@ const data = useMemo( () => [2], [])
   return (
     <>
       <h1>Setting</h1>
-    <Test data={data}/>
       <div>
         <form>
           <label>
             Сurrency:
-
             <select
              name="currency"
              value={state.currency}
@@ -45,6 +43,18 @@ const data = useMemo( () => [2], [])
             </select>
           </label>
         </form>
+      </div>
+      <div>
+        <Button onClick={handleStatusChange}>Advanced settings</Button>
+        {
+          status 
+          ?
+        <div>
+          <h2>Advanced settings</h2>
+          <p>...</p>
+        </div> 
+          : null
+        }
       </div>
     </>
   );
