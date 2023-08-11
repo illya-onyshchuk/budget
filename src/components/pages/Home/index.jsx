@@ -1,55 +1,22 @@
-import {useState, useEffect, useCallback} from "react"
+import { useState } from "react"
 import Balance from "../../Balance";
 import Transactions from "../../Transactions";
 import Form from "../../Form";
-import { Wrapper } from "./style";
 import ErrorBoundary from "../../ErrorBoundary";
-import { getItems, addItem } from "../../../utils/indexdb";
+
+import { useData } from "../../hooks/useData";
+import { Wrapper } from "./style";
+import { STATUS } from "../../../constants";
 
 
 const Home = () => {
   const [balance, setBalance] = useState(0);
-  const [transactions, setTransactions] = useState([]);
+  const {transactions, status, pushTransaction, onDelete, onStarClick} = useData();
 
-  useEffect(() => {
-    getItems().then(items => {
-      setTransactions(items)
-    }).catch(e => {
-      console.error('error', e)
-    })
-  }, [setTransactions]);
-
-const onChange = ({value, date, comment}) => {
-    const transaction = {
-      value: +value,
-      comment,
-      date,
-      id: Date.now(),
-    };
-
-    setTransactions([
-        transaction,
-      ...transactions
-    ]);
-
-    setBalance(balance + Number(value));
-
-    addItem(transaction);
+const onChange = (transaction) => {
+    pushTransaction(transaction)
+    setBalance(balance + Number(transaction.value));
   }
-
-  const onDelete = useCallback((id) => {
-    setTransactions((transactions) => transactions.filter((transaction) => transaction.id !== id))
-  }, [setTransactions]);
-
-  const onStarClick = useCallback((id) => {
-    setTransactions((transactions) => transactions.map((transaction) => transaction.id !== id 
-        ? transaction 
-        : {
-          ...transaction,
-           isStarred: !transaction.isStarred
-          }
-    ))
-  });
 
     return (
       <ErrorBoundary>
@@ -57,12 +24,22 @@ const onChange = ({value, date, comment}) => {
             <Balance balance={balance}/>
             <Form onChange={onChange} />
             <hr />
-            <Transactions transactions={transactions}
-               onDelete={onDelete}
-               onStarClick={onStarClick}/>
+            {status === STATUS.PENDING 
+              ? <div>Loading...</div>
+              : null
+            }
+
+            {status === STATUS.SUCCESS
+              ? <Transactions
+                  transactions={transactions}
+                  onDelete={onDelete}
+                  onStarClick={onStarClick}
+                />
+              : null
+            }
           </Wrapper>
       </ErrorBoundary>
-    )
+    ) 
  }
 
  export default Home
