@@ -19,3 +19,4 @@ Transaction.prototype = {
 }
 
 export default Transactions;
+ 

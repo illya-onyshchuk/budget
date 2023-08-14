@@ -1,5 +1,5 @@
 import {useEffect, useState, useCallback} from 'react'
-import { addItem, getItems } from '../../utils/indexdb'
+import { addItem, getItems, deleteItem, updateItem } from '../../utils/indexdb'
 
 import { STATUS } from '../../constants/index'
 
@@ -53,19 +53,26 @@ export const useData = () => {
       ...state,
       transactions: state.transactions.filter((transaction) => transaction.id !== id)
      }))
+
+     deleteItem(id)
   }, [setState]);
 
   const onStarClick = useCallback((id) => {
-    setState((state) => ({
-      ...state,
-      transactions: state.transactions.map((transaction) => transaction.id !== id 
-        ? transaction 
-        : {
-          ...transaction,
-           isStarred: !transaction.isStarred
-          })
-     }))
-  }, [setState]);
+    const item = state.transactions.find((i) => i.id === id);
+
+    updateItem({
+        ...item,
+        isStarred: !item.isStarred
+    }).then(() => {
+        setState((state) => ({
+            ...state,
+            transactions: state.transactions.map((item) => item.id !== id ? item : {
+                ...item,
+                isStarred: !item.isStarred
+            })
+        }))
+    })
+  }, [setState, state]);
 
   return (
     {
