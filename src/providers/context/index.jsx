@@ -10,6 +10,14 @@ const reducer = (state, action) => {
         ...state,
         currency: action.currency,
       }
+
+    case 'setTheme': {
+      return {
+        ...state,
+        themeName: action.themeName
+      }
+    }
+
     case 'reset': 
       return defaultContext;
     default:

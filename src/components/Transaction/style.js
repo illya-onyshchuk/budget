@@ -36,4 +36,4 @@ export const Icon = styled.span`
     margin-right: 10px;
   }
 `
-Icon.displayName = 'Value'
+Icon.displayName = 'Icon'

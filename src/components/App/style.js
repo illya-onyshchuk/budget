@@ -11,5 +11,5 @@ export const GlobalStyle = createGlobalStyle`
 
 export const Wrapper = styled.div`
   padding: 5px;
-  background: #eee;
+  background: ${props => props.theme.background};
 `

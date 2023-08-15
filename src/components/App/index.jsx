@@ -1,55 +1,18 @@
-import { Component } from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { open } from "../../utils/indexdb";
+/* eslint-disable import/no-anonymous-default-export */
 
-import Home from "../pages/Home";
-import About from "../pages/About";
-import Statistics from "../pages/Statistics";
-import Settings from "../pages/Settings";
-import Navbar  from "../Navbar";
+import React, { useContext } from 'react';
+import { ThemeProvider } from 'styled-components';
+import App from './app';
+import { AppContext } from '../../providers/context';
+import { getTheme } from '../../providers/themes/getTheme';
 
-import { GlobalStyle, Wrapper } from "./style";
+export default () => {
+  const {state, dispatch} = useContext(AppContext)
 
-class App extends Component {
-    constructor(props) {
-      super(props);
+  return (
+    <ThemeProvider theme={getTheme(state.themeName)}>
+      <App/>
+    </ThemeProvider>
+  )
+}
 
-      this.state = {
-        loading: true,
-      }
-    }
-
-    componentDidMount() {
-      open().then(() => {
-        this.setState({
-          loading: false
-        })
-      }).catch(() => {
-        console.error('Error')
-      });
-    }
-
-    render() {
-      if (this.state.loading) {
-        return <div>Loading...</div>
-      }
-
-      return (
-            <BrowserRouter>
-              <Wrapper> 
-                <GlobalStyle/> 
-                <Navbar/> 
-                <Routes>
-                  <Route path='/home' element={<Home/>} exact={true}/>
-                  <Route path='/statistics' element={<Statistics/>} exact={true}/>
-                  <Route path='/settings' element={<Settings />} exact={true}/>
-                  <Route path='/about' element={<About/>} exact={true} />
-                  <Route path="*" element={<Navigate to={'/home'}/>} />
-                </Routes>
-              </Wrapper>
-            </BrowserRouter>
-      )
-    }
- }
-
- export default App
