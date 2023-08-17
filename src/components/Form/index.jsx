@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Comment, Button, Input, Row } from './style';
+import { FormattedMessage } from 'react-intl';
 
 const Form = (props) =>{
   const [form, setForm] = useState({
@@ -30,30 +31,34 @@ const Form = (props) =>{
   }
 
     return ( 
-      <form onSubmit={onSubmit}>
-        <Row>
-          <Input
-          type="date"
-          name="date"
-          value={form.date}
-          onChange={onChange} />
-          <Input
-          type="number" 
-          name='value' 
-          placeholder='Sum'
-          value={form.value}
-          onChange={onChange}
-          />
-        </Row>
-        <Row>
-          <Button>Save</Button>
-          <Comment 
-          name="comment"
-          value={form.comment}
-          onChange={onChange}
-          />
-        </Row>
-      </form>
+      <>
+        <FormattedMessage id='hello'/>
+        <form onSubmit={onSubmit}>
+            <Row>
+              <Input
+                type="date"
+                name="date"
+                value={form.date}
+                onChange={onChange}
+              />
+              <Input
+                type="number" 
+                name='value' 
+                placeholder='Sum'
+                value={form.value}
+                onChange={onChange}
+              />
+            </Row>
+            <Row>
+              <Button>Save</Button>
+              <Comment 
+                name="comment"
+                value={form.comment}
+                onChange={onChange}
+              />
+            </Row>
+        </form>
+      </>
     );
 }
 

@@ -5,13 +5,16 @@ import { ThemeProvider } from 'styled-components';
 import App from './app';
 import { AppContext } from '../../providers/context';
 import { getTheme } from '../../providers/themes/getTheme';
+import { IntlAppProvider } from '../../providers/i18n';
 
 export default () => {
   const {state, dispatch} = useContext(AppContext)
 
   return (
     <ThemeProvider theme={getTheme(state.themeName)}>
-      <App/>
+      <IntlAppProvider>
+        <App/>
+      </IntlAppProvider>
     </ThemeProvider>
   )
 }

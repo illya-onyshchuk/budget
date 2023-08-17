@@ -18,6 +18,13 @@ const reducer = (state, action) => {
       }
     }
 
+    case 'setLocale': {
+      return {
+        ...state,
+        locale: action.locale
+      }
+    }
+
     case 'reset': 
       return defaultContext;
     default:
