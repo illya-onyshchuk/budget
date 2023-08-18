@@ -11,14 +11,16 @@ const Form = (props) =>{
   })
 
   const onSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     props.onChange(form)
     setForm({
       ...form,
       value: '',
       comment: '',  
-    })
+    });
+
+    props.onCloseModal()
   }
 
   const onChange = (e) => {

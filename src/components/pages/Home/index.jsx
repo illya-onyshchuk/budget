@@ -1,7 +1,7 @@
 import { useState } from "react"
 import Balance from "../../Balance";
 import Transactions from "../../Transactions";
-import Form from "../../Form";
+import ChangeBalance from "../../ChangeBalance";
 import ErrorBoundary from "../../ErrorBoundary";
 
 import { useData } from "../../hooks/useData";
@@ -22,7 +22,7 @@ const onChange = (transaction) => {
       <ErrorBoundary>
           <Wrapper> 
             <Balance balance={balance}/>
-            <Form onChange={onChange} />
+            <ChangeBalance onChange={onChange} />
             <hr />
             {status === STATUS.PENDING 
               ? <div>Loading...</div>
