@@ -1,16 +1,10 @@
 import React, { useState } from 'react';
-import { Modal } from '../../Modal'
 import styled from 'styled-components';
 
 
 const Button = styled.button`
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 60px;
-  height: 20px;
-  margin: 10px auto 0;
+  width: 4em;
   border: 1px solid #cc0000;
   background-color: #e50000;
   border-radius: 5px;
@@ -24,20 +18,43 @@ const Button = styled.button`
   }
 `
 
-const Statistics = () => {
-  const [openModal, setOpenModal] = useState(false)
+const list = new Array(20).fill(0).map(() => `Item - ${Math.random(1)}`)
+
+const List = ({list}) => {
+  const [filter, setFilter] = useState(''); 
+
+  const filterList =  list.filter(item => item.includes(filter));
 
   return (
     <>
-      <h1>Statistics page</h1>
-      <button onClick={(e) =>setOpenModal(true)}>Open</button>
-      <Modal
-        open={openModal}
-        onClose={() => setOpenModal(false)}
-        >
-        <div>Content</div>
-        <Button onClick={(e) => setOpenModal(false)}>Close</Button>
-      </Modal>
+      <ul>
+        {filterList.map(item => <li key={item}>{item}</li>)}
+      </ul>
+      <input type="text" onChange={(e) => setFilter(e.target.value)} />
+    </>
+  )
+}
+
+const Clicker = ({children}) => {
+  const [n, setN] = useState(0)
+
+  return (
+    <div data-count={n}>
+      <h2>{children}</h2>
+      <p>Clicked {n} times.</p>
+      <Button onClick={() => setN(n + 1)}>Click me</Button>
+    </div>
+  )
+}
+
+const Statistics = () => {
+
+  
+  return (
+    <>
+      <Clicker>
+        <List list={list}/>
+      </Clicker>
     </>
   );
 }
