@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import withProfiler from '../../HOCs/withProfiler';
 
 
 const Button = styled.button`
@@ -28,7 +29,7 @@ const List = ({list}) => {
   return (
     <>
       <ul>
-        {filterList.map(item => <li key={item}>{item}</li>)}
+        {filterList.map((item) => <li key={item}>{item}</li>)}
       </ul>
       <input type="text" onChange={(e) => setFilter(e.target.value)} />
     </>
@@ -59,4 +60,4 @@ const Statistics = () => {
   );
 }
 
-export default Statistics;
+export default withProfiler(Statistics, 'S tatistics');
